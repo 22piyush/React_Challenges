@@ -12,10 +12,15 @@ function App() {
       const color1 = getHexColorCode();
       const color2 = getHexColorCode();
       const degree = Math.floor(Math.random() * 360);
-      const degreeString = `${degree}deg`;
+
+      const gradient =
+        type === "linear"
+          ? `linear-gradient(${degree}deg, ${color1}, ${color2})`
+          : `radial-gradient(circle, ${color1}, ${color2})`;
+
       colors.push({
-        gradient: `linear-gradient(${degreeString}, ${color1}, ${color2})`,
-        css: `background: linear-gradient(${degreeString}, ${color1}, ${color2})`,
+        gradient,
+        css: `background: ${gradient}`,
       });
     }
 
