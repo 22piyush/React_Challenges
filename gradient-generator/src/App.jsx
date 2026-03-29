@@ -6,11 +6,25 @@ function App() {
   const [gradients, setGradient] = useState([]);
 
   const generateGradients = () => {
+    const colors = [];
+
     for (let i = 0; i < num; i++) {
       const color1 = getHexColorCode();
       const color2 = getHexColorCode();
       const degree = Math.floor(Math.random() * 360);
+      const degreeString = `${degree}deg`;
+      colors.push({
+        gradient: `linear-gradient(${degreeString}, ${color1}, ${color2})`,
+        css: `background: linear-gradient(${degreeString}, ${color1}, ${color2})`,
+      });
     }
+
+    setGradient(colors);
+  };
+
+  const onCopy = (css) => {
+    navigator.clipboard.writeText(css);
+    alert("Color Copied Successfully");
   };
 
   useEffect(() => {
@@ -47,14 +61,17 @@ function App() {
           </div>
         </div>
 
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-4 gap-4 mt-15">
           {gradients.map((item, index) => (
             <div
               key={index}
               className="relative h-[180px] rounded-xl"
               style={{ background: getHexColorCode() }}
             >
-              <button className="bg-black/75 text-white rounded absolute bottom-3 right-3 text-[10px] px-3 py-2 cursor-pointer ">
+              <button
+                onClick={() => onCopy(item.css)}
+                className="bg-black/75 text-white rounded absolute bottom-3 right-3 text-[10px] px-3 py-2 cursor-pointer "
+              >
                 COPY
               </button>
             </div>
