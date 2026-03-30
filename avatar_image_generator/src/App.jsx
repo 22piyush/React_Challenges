@@ -1,5 +1,53 @@
 import React from "react";
-import 'animate.css';
+import "animate.css";
+
+const data = [
+  {
+    label: "Illustration",
+    value: "avataars",
+    url: "https://api.dicebear.com/7.x/avataars/svg?speed=",
+  },
+  {
+    label: "Sketchy",
+    value: "croodles",
+    url: "https://api.dicebear.com/7.x/croodles/svg?speed=",
+  },
+  {
+    label: "Cartoon",
+    value: "adventurer",
+    url: "https://api.dicebear.com/7.x/adventurer/svg?speed=",
+  },
+  {
+    label: "Male",
+    value: "male",
+    url: "https://api.dicebear.com/7.x/adventurer/svg?gender=male&speed=",
+  },
+  {
+    label: "Female",
+    value: "female",
+    url: "https://api.dicebear.com/7.x/adventurer/svg?gender=female&speed=",
+  },
+  {
+    label: "Robots",
+    value: "robots",
+    url: "https://api.dicebear.com/7.x/bottts/svg?speed=",
+  },
+  {
+    label: "Pixel Art",
+    value: "pixel",
+    url: "https://api.dicebear.com/7.x/pixel-art/svg?speed=",
+  },
+  {
+    label: "Fun Emoji",
+    value: "emoji",
+    url: "https://api.dicebear.com/7.x/fun-emoji/svg?speed=",
+  },
+  {
+    label: "Art (Abstract)",
+    value: "art",
+    url: "https://api.dicebear.com/7.x/shapes/svg?speed=",
+  },
+];
 
 function App() {
   return (
@@ -19,7 +67,11 @@ function App() {
 
         <div className="w-full mt-10 flex flex-col gap-5">
           <select className="bg-slate-900/60 w-full p-3 rounded-xl">
-            <option>Male</option>
+            {data.map((item, index) => (
+              <option key={index} value={item.value}>
+                {item.label}
+              </option>
+            ))}
           </select>
 
           <div className="bg-slate-900/60 w-full p-3 rounded-xl">coing ott</div>
