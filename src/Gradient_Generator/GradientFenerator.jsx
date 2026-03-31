@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function App() {
+function GradientFenerator() {
   const [num, setNum] = useState(12);
   const [type, setType] = useState("linear");
   const [gradients, setGradient] = useState([]);
@@ -71,7 +71,7 @@ function App() {
             <div
               key={index}
               className="relative h-[180px] rounded-xl"
-              style={{ background: getHexColorCode() }}
+              style={{ background: item.gradient }}
             >
               <button
                 onClick={() => onCopy(item.css)}
@@ -87,4 +87,4 @@ function App() {
   );
 }
 
-export default App;
+export default GradientFenerator;

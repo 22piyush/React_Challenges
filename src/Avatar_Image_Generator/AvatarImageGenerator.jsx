@@ -49,7 +49,7 @@ const data = [
   },
 ];
 
-function App() {
+function AvatarImageGenerator() {
   const [src, setSrc] = useState(null);
   const [option, setOption] = useState("male");
 
@@ -152,4 +152,4 @@ function App() {
   );
 }
 
-export default App;
+export default AvatarImageGenerator;

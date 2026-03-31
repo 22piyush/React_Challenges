@@ -3,7 +3,7 @@ import "animate.css";
 import axios from "axios";
 const API_KEY = "JnXRPk8wzzzgtmJYpdMIdFaU6tgpciZfwfpLWZjTVQTQcRhCB5bbG2dK";
 
-function App() {
+function ImageFinder() {
   const [photos, setPhotos] = useState([]);
   const [count, setCount] = useState(12);
   const [loading, setLoading] = useState(false);
@@ -98,4 +98,4 @@ function App() {
   );
 }
 
-export default App;
+export default ImageFinder;
