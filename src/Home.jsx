@@ -4,9 +4,25 @@ import { data } from "./config/data";
 function Home() {
   return (
     <div className="min-h-screen w-full bg-gradient-to-r from-purple-500 to-purple-800 text-white">
-      <div className="grid md:grid-cols-5 gap-3">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {data.map((item, index) => (
-          <div key={index}></div>
+          <div
+            key={index}
+            className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-300 flex flex-col justify-between"
+          >
+            {/* Title */}
+            <h2 className="text-lg font-semibold mb-4">{item.title}</h2>
+
+            {/* Bottom Right Link */}
+            <div className="flex justify-end">
+              <Link
+                to={`/${item.id}`}
+                className="text-sm px-4 py-2 rounded-lg bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-fuchsia-500 hover:to-violet-500 transition-all duration-300"
+              >
+                Open →
+              </Link>
+            </div>
+          </div>
         ))}
       </div>
     </div>
