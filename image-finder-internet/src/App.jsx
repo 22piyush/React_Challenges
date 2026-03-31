@@ -1,7 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "animate.css";
+import axios from "axios";
+const API_KEY = "JnXRPk8wzzzgtmJYpdMIdFaU6tgpciZfwfpLWZjTVQTQcRhCB5bbG2dK";
 
 function App() {
+  const [photos, setPhotos] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchImage = async () => {
+    setLoading(true);
+
+    try {
+      const options = {
+        headers: {
+          Authorization: API_KEY,
+        },
+      };
+      const res = await axios.get(
+        `https://api.pexels.com/v1/search?query=people&page=1&per_page=12`,
+        options,
+      );
+      console.log(res);
+      setPhotos(res.data.photos);
+    } catch (err) {
+      alert("Failed", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchImage();
+  }, []);
+
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center py-8 gap-12 animate__animated animate__fadeIn">
       <h1 className="text-4xl font-bold text-indigo-600">📷 Image Gallery</h1>
@@ -18,12 +49,20 @@ function App() {
       </form>
 
       <div className="grid lg:grid-cols-4 lg:gap-12 gap-8 w-9/12">
-        {Array(24)
-          .fill(0)
-          .map((item, index) => {
-            <div key={index} className="bg-white rounded-xl p-12"></div>;
-          })}
+        {photos.map((item, index) => (
+          <div key={index} className="bg-white rounded-xl">
+            <img
+              src={item.src.medium}
+              alt={item.alt}
+              className="rounded-lg h-[180px] object-cover w-full hover:scale-110 transition-transform duration-300"
+            />
+          </div>
+        ))}
       </div>
+
+      {loading && (
+        <div className="absolute top-[50%] left-[50%]">Loading...</div>
+      )}
     </div>
   );
 }
