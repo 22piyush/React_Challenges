@@ -38,7 +38,7 @@ function TaskPlanner() {
 
   return (
     <div className="bg-gray-200 h-screen overflow-hidden">
-      <nav className="bg-white h-[60px] fixed top-0 left-0 w-full flex justify-between items-center px-8">
+      <nav className="text-white bg-gradient-to-r from-rose-500 via-slate-800 to-slate-900 bg-white h-[60px] fixed top-0 left-0 w-full flex justify-between items-center px-8">
         <div>
           <button className="rounded-full h-10 w-10 bg-blue-600 font-bold text-white ">
             PL
@@ -46,8 +46,15 @@ function TaskPlanner() {
           <span className="text-xl font-bold ml-1">anner</span>
         </div>
         <div className="flex gap-4 items-center">
+          <h1 className="text-xl font-bold lg:block ">{timer}</h1>
           <DatePicker />
-          <h1 className="text-xl font-bold">{timer}</h1>
+          <button
+            onClick={() => setOpen(true)}
+            className="focus:shadow-lg hover:scale-105 transition-translate cursor-pointer duration-300 bg-gradient-to-br from-blue-600 via-violet-500 to-blue-600 text-white flex items-center gap-1 font-medium rounded-lg px-3 py-1 text-sm"
+          >
+            <Plus className="w-4 h-4" />
+            Add Task
+          </button>
         </div>
       </nav>
 
@@ -55,16 +62,9 @@ function TaskPlanner() {
         <div className="h-full lg:min-h-0  h-[300px]">
           <Badge.Ribbon
             text="Highest"
-            className="!bg-gradient-to-r !from-rose-500 !via-pink-500 !to-rose-500 !font-medium "
+            className="z-[99999] !bg-gradient-to-r !from-rose-500 !via-pink-500 !to-rose-500 !font-medium "
           />
           <div className="bg-white p-6 rounded-lg min-h-0 h-full overflow-auto space-y-8">
-            <button
-              onClick={() => setOpen(true)}
-              className="focus:shadow-lg hover:scale-105 transition-translate cursor-pointer duration-300 bg-gradient-to-br from-blue-600 via-violet-500 to-blue-600 text-white flex items-center gap-1 font-medium rounded-lg px-3 py-1 text-sm"
-            >
-              <Plus className="w-4 h-4" />
-              Add Task
-            </button>
             <div className="flex flex-col gap-8">
               {Array(10)
                 .fill(0)
@@ -106,13 +106,6 @@ function TaskPlanner() {
             className="!bg-gradient-to-r !from-indigo-500 !via-blue-500 !to-indigo-500 !font-medium z-[99999]"
           />
           <div className="bg-white p-6 rounded-lg min-h-0 h-full overflow-auto space-y-8">
-            <button
-              onClick={() => setOpen(true)}
-              className="focus:shadow-lg hover:scale-105 transition-translate cursor-pointer duration-300 bg-gradient-to-br from-blue-600 via-violet-500 to-blue-600 text-white flex items-center gap-1 font-medium rounded-lg px-3 py-1 text-sm"
-            >
-              <Plus className="w-4 h-4" />
-              Add Task
-            </button>
             <div className="flex flex-col gap-8">
               {Array(10)
                 .fill(0)
@@ -151,16 +144,9 @@ function TaskPlanner() {
         <div className="h-full lg:min-h-0  h-[300px]">
           <Badge.Ribbon
             text="Lowest"
-            className="!bg-gradient-to-r !from-amber-500 !via-orange-500 !to-amber-500 !font-medium "
+            className="z-[99999] !bg-gradient-to-r !from-amber-500 !via-orange-500 !to-amber-500 !font-medium "
           />
           <div className="bg-white p-6 rounded-lg min-h-0 h-full overflow-auto space-y-8">
-            <button
-              onClick={() => setOpen(true)}
-              className="focus:shadow-lg hover:scale-105 transition-translate cursor-pointer duration-300 bg-gradient-to-br from-blue-600 via-violet-500 to-blue-600 text-white flex items-center gap-1 font-medium rounded-lg px-3 py-1 text-sm"
-            >
-              <Plus className="w-4 h-4" />
-              Add Task
-            </button>
             <div className="flex flex-col gap-8">
               {Array(10)
                 .fill(0)
@@ -197,9 +183,9 @@ function TaskPlanner() {
         </div>
       </section>
 
-      <footer className="bg-white px-8 h-[60px] fixed bottom-0 left-0 w-full flex justify-between items-center">
+      <footer className="text-white bg-gradient-to-r from-rose-500 via-slate-800 to-slate-900 bg-white px-8 h-[60px] fixed bottom-0 left-0 w-full flex justify-between items-center">
         <h1 className="text-xl font-bold">Total Task - 22</h1>
-        <p className="text-gray-500 hover:text-gray-900 cursor-pointer">
+        <p className="text-white-500 hover:text-white-900 cursor-pointer">
           Task Planner
         </p>
       </footer>
@@ -212,12 +198,20 @@ function TaskPlanner() {
       >
         <h1 className="text-lg font-medium mb-4">New task</h1>
         <Form onFinish={createTask}>
-          <Form.Item name="title" rules={[{ required: true }]}>
+          <Form.Item name="taskName" rules={[{ required: true }]}>
             <Input placeholder="Task name" size="large" />
           </Form.Item>
 
           <Form.Item name="description" rules={[{ required: true }]}>
             <Input.TextArea placeholder="Task Description goes here" rows={5} />
+          </Form.Item>
+
+          <Form.Item name="priority" rules={[{ required: true }]}>
+            <Select size="large" placeholder="Change Priority">
+              <Option value="highest">Highest</Option>
+              <Option value="medium">Medium</Option>
+              <Option value="lowest">Lowest</Option>
+            </Select>
           </Form.Item>
 
           <Form.Item name="description" rules={[{ required: true }]}>
