@@ -4,4 +4,5 @@ export const data = [
   { title: "Gradient Generator", id: "gradient-generator" },
   { title: "Youtube Thumbnail", id: "youtube-thumbnail" },
   { title: "Task Planner", id: "task-planner" },
+  { title: "FAQ Component", id: "faq-component" },
 ];
