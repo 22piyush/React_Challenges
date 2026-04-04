@@ -7,9 +7,6 @@ const { Option } = Select;
 function CardComponent() {
   const { tasks, deleteTask, updateStatus } = usePlanner();
 
-  console.log(tasks);
-  
-
   const groupedTasks = useMemo(() => {
     return {
       highest: tasks.filter((t) => t.priority === "highest"),

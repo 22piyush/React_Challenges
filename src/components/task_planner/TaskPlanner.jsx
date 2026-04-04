@@ -12,9 +12,6 @@ function TaskPlanner() {
 
   const { tasks, addTask } = usePlanner();
 
-  console.log("1111111111111111");
-  
-
   const createTask = useCallback(
     (value) => {
       addTask(value);
@@ -48,7 +45,7 @@ function TaskPlanner() {
 
         <div className="flex gap-4 items-center">
           <h1 className="text-xl font-bold">{timer}</h1>
-          <DatePicker />
+          {/* <DatePicker /> */}
 
           <button
             onClick={() => setOpen(true)}
