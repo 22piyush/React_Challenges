@@ -4,3 +4,7 @@ html{
     scroll-behavior: smooth;
     scrollbar-width: thin;
 }
+
+.ant-ribbon-wrapper{
+    z-index: 999;
+}

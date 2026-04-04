@@ -1,137 +1,93 @@
-import React from "react";
+import React, { useMemo, useCallback } from "react";
 import { Badge, Card, Select, Tag } from "antd";
+import { usePlanner } from "./store/usePlanner";
+
 const { Option } = Select;
-import { Plus } from "lucide-react";
 
 function CardComponent() {
+  const { tasks, deleteTask, updateStatus } = usePlanner();
+
+  const groupedTasks = useMemo(() => {
+    return {
+      highest: tasks.filter((t) => t.priority === "highest"),
+      medium: tasks.filter((t) => t.priority === "medium"),
+      lowest: tasks.filter((t) => t.priority === "lowest"),
+    };
+  }, [tasks]);
+
+  const handleDelete = useCallback(
+    (id) => {
+      deleteTask(id);
+    },
+    [deleteTask],
+  );
+
+  const handleStatusChange = useCallback(
+    (id, value) => {
+      updateStatus(id, value);
+    },
+    [updateStatus],
+  );
+
+  // ✅ Reusable render function
+  const renderList = (list) =>
+    list.map((task) => (
+      <Card key={task.id}>
+        <Card.Meta title={task.taskName} description={task.description} />
+
+        <div className="mt-5 flex justify-between items-center">
+          <div className="flex gap-3">
+            <Tag>{task.status}</Tag>
+
+            <Tag
+              onClick={() => handleDelete(task.id)}
+              className="cursor-pointer !bg-red-500 !text-white"
+            >
+              Delete
+            </Tag>
+          </div>
+
+          <Select
+            size="small"
+            value={task.status}
+            style={{ width: 140 }}
+            onChange={(value) => handleStatusChange(task.id, value)}
+          >
+            <Option value="pending">Pending</Option>
+            <Option value="inProgress">In Progress</Option>
+            <Option value="completed">Completed</Option>
+          </Select>
+        </div>
+      </Card>
+    ));
+
   return (
-    <>
-      <section className="h-[calc(100%-120px)] fixed top-0 left-0 h-[500px] w-full mt-[60px] overflow-x-auto overflow-y-visible grid lg:grid-cols-3 gap-8 p-8">
-        <div className="h-full lg:min-h-0  h-[300px]">
-          <Badge.Ribbon
-            text="Highest"
-            className="z-[99999] !bg-gradient-to-r !from-rose-500 !via-pink-500 !to-rose-500 !font-medium "
-          />
-          <div className="bg-white p-6 rounded-lg min-h-0 h-full overflow-auto space-y-8">
-            <div className="flex flex-col gap-8">
-              {Array(10)
-                .fill(0)
-                .map((item, index) => (
-                  <Card key={index}>
-                    <Card.Meta
-                      title="Upload new video on youtube"
-                      description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis quasi ex atque voluptate adipisci, recusandae quod tempore quae. Doloribus voluptas repellendus iure illum quod soluta facere quo! Non, delectus ex."
-                    />
-                    <div className="mt-7 flex justify-between">
-                      <div className="flex gap-4">
-                        <Tag className="cursor-pointer">Pending</Tag>
-                        <Tag className="cursor-pointer !bg-rose-500 !border-rose-500 !text-white">
-                          Delete
-                        </Tag>
-                      </div>
-
-                      <div>
-                        <Select
-                          size="small"
-                          placeholder="Change Status"
-                          style={{ width: 150 }}
-                        >
-                          <Option value="pending">Pending</Option>
-                          <Option value="inProgress">In Progress</Option>
-                          <Option value="completed">Completed</Option>
-                        </Select>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-            </div>
-          </div>
+    <section className="h-[calc(100%-120px)] mt-[60px] grid lg:grid-cols-3 gap-6 p-6 overflow-auto">
+      {/* Highest */}
+      <div className="relative">
+        <Badge.Ribbon text="Highest" color="red" />
+        <div className="bg-white p-4 rounded-lg h-full overflow-auto space-y-4">
+          {renderList(groupedTasks.highest)}
         </div>
+      </div>
 
-        <div className="h-full lg:min-h-0  h-[300px]">
-          <Badge.Ribbon
-            text="Medium"
-            className="!bg-gradient-to-r !from-indigo-500 !via-blue-500 !to-indigo-500 !font-medium z-[99999]"
-          />
-          <div className="bg-white p-6 rounded-lg min-h-0 h-full overflow-auto space-y-8">
-            <div className="flex flex-col gap-8">
-              {Array(10)
-                .fill(0)
-                .map((item, index) => (
-                  <Card key={index}>
-                    <Card.Meta
-                      title="Upload new video on youtube"
-                      description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis quasi ex atque voluptate adipisci, recusandae quod tempore quae. Doloribus voluptas repellendus iure illum quod soluta facere quo! Non, delectus ex."
-                    />
-                    <div className="mt-7 flex justify-between">
-                      <div className="flex gap-4">
-                        <Tag className="cursor-pointer">Pending</Tag>
-                        <Tag className="cursor-pointer !bg-rose-500 !border-rose-500 !text-white">
-                          Delete
-                        </Tag>
-                      </div>
-
-                      <div>
-                        <Select
-                          size="small"
-                          placeholder="Change Status"
-                          style={{ width: 150 }}
-                        >
-                          <Option value="pending">Pending</Option>
-                          <Option value="inProgress">In Progress</Option>
-                          <Option value="completed">Completed</Option>
-                        </Select>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-            </div>
-          </div>
+      {/* Medium */}
+      <div className="relative">
+        <Badge.Ribbon text="Medium" color="blue" />
+        <div className="bg-white p-4 rounded-lg h-full overflow-auto space-y-4">
+          {renderList(groupedTasks.medium)}
         </div>
+      </div>
 
-        <div className="h-full lg:min-h-0  h-[300px]">
-          <Badge.Ribbon
-            text="Lowest"
-            className="z-[99999] !bg-gradient-to-r !from-amber-500 !via-orange-500 !to-amber-500 !font-medium "
-          />
-          <div className="bg-white p-6 rounded-lg min-h-0 h-full overflow-auto space-y-8">
-            <div className="flex flex-col gap-8">
-              {Array(10)
-                .fill(0)
-                .map((item, index) => (
-                  <Card key={index}>
-                    <Card.Meta
-                      title="Upload new video on youtube"
-                      description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis quasi ex atque voluptate adipisci, recusandae quod tempore quae. Doloribus voluptas repellendus iure illum quod soluta facere quo! Non, delectus ex."
-                    />
-                    <div className="mt-7 flex justify-between">
-                      <div className="flex gap-4">
-                        <Tag className="cursor-pointer">Pending</Tag>
-                        <Tag className="cursor-pointer !bg-rose-500 !border-rose-500 !text-white">
-                          Delete
-                        </Tag>
-                      </div>
-
-                      <div>
-                        <Select
-                          size="small"
-                          placeholder="Change Status"
-                          style={{ width: 150 }}
-                        >
-                          <Option value="pending">Pending</Option>
-                          <Option value="inProgress">In Progress</Option>
-                          <Option value="completed">Completed</Option>
-                        </Select>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-            </div>
-          </div>
+      {/* Lowest */}
+      <div className="relative">
+        <Badge.Ribbon text="Lowest" color="orange" />
+        <div className="bg-white p-4 rounded-lg h-full overflow-auto space-y-4">
+          {renderList(groupedTasks.lowest)}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 
-export default CardComponent;
+export default React.memo(CardComponent);
