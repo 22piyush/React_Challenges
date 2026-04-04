@@ -5,13 +5,16 @@ const { Option } = Select;
 import { Plus } from "lucide-react";
 import AddTaskComponent from "./AddTaskComponent";
 import CardComponent from "./CardComponent";
+import { usePlanner } from "./store/usePlanner";
 
 function TaskPlanner() {
   const [open, setOpen] = useState(false);
   const [timer, setTimer] = useState(new Date().toLocaleTimeString());
 
+  const { task , addTask} = usePlanner();
+
   const createTask = (value) => {
-    console.log(value);
+    addTask(value)
   };
 
   const handleClose = () => {

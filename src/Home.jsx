@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 function Home() {
   return (
-    <div className="min-h-screen w-full bg-gradient-to-r from-purple-500 to-purple-800 text-white p-6">
-      <div className="sticky top-0 z-50 bg-gradient-to-r from-purple-500 to-purple-800 p-6 text-center">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-900 via-purple-900 to-slate-800 text-white p-6">
+      <div className="mb-10 text-center">
         <h1 className="text-4xl font-semibold">React Challenges</h1>
       </div>
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
