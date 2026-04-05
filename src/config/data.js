@@ -5,4 +5,5 @@ export const data = [
   { title: "Youtube Thumbnail", id: "youtube-thumbnail" },
   { title: "Task Planner", id: "task-planner" },
   { title: "FAQ Component", id: "faq-component" },
+  { title: "Image Size Finder", id: "image-size-finder" },
 ];

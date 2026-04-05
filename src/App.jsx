@@ -7,6 +7,7 @@ import AvatarImageGenerator from "./components/AvatarImageGenerator";
 import YoutubeThumbnailer from "./components/YoutubeThumbnailer";
 import TaskPlanner from "./components/task_planner/TaskPlanner";
 import FAQ from "./components/faq_component/FAQ";
+import ImageSizeFinder from "./components/image_size_finder/ImageSizeFinder";
 function App() {
   return (
     <BrowserRouter>
@@ -18,6 +19,7 @@ function App() {
         <Route path="/youtube-thumbnail" element={<YoutubeThumbnailer />} />
         <Route path="/task-planner" element={<TaskPlanner />} />
         <Route path="/faq-component" element={<FAQ />} />
+        <Route path="/image-size-finder" element={<ImageSizeFinder />} />
       </Routes>
     </BrowserRouter>
   );
