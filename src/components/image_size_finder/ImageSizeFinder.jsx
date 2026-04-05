@@ -2,7 +2,7 @@ import { ArrowBigDown, ArrowBigRight, Plus } from "lucide-react";
 import React, { useState } from "react";
 
 function ImageSizeFinder() {
-  const [src, setSrc] = useState("/favicon.svg");
+  const [src, setSrc] = useState("");
   const [original, setOriginal] = useState({
     height: 0,
     width: 0,
@@ -39,13 +39,22 @@ function ImageSizeFinder() {
       const image = new Image();
       image.src = url;
       image.onload = () => {
-        console.log(image.width, image.height);
         setOriginal({
           height: image.height,
           width: image.width,
         });
       };
     };
+  };
+
+  const handleClear = () => {
+    setSrc("");
+    setOriginal({
+      height: 0,
+      width: 0,
+    });
+    setSuggestedHeight(0);
+    setSuggestedWidth(0);
   };
 
   return (
@@ -58,8 +67,27 @@ function ImageSizeFinder() {
           <Plus className="w-5 h-5 mr-1" /> Add Image
         </button>
 
-        <div className="bg-white rounded--xl p-8 mt-10 flex justify-center">
-          <img src={src} alt="image" className="w-[40%]" />
+        <div className="bg-white rounded--xl p-8 mt-10 flex justify-center relative">
+          {src ? (
+            <img src={src} alt="image" className="w-[35%]" />
+          ) : (
+            <div className="flex flex-col items-center gap-10 w-full">
+              <img
+                src="https://cdn-icons-png.flaticon.com/128/3747/3747120.png"
+                className="w-[200px]"
+              />
+              <div className="text-xl">
+                Click Add Image button to upload image
+              </div>
+            </div>
+          )}
+
+          <button
+            onClick={handleClear}
+            className="absolute top-[10px] right-[20px] bg-red-500 hover:bg-red-600 text-white px-4 py-1.5 rounded-md text-sm font-medium shadow-md transition-all duration-200"
+          >
+            Clear
+          </button>
         </div>
         <div className="bg-white rounded--xl p-8 mt-10 grid grid-cols-2  justify-items-center">
           <div>
