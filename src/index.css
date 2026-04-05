@@ -8,3 +8,7 @@ html{
 .ant-ribbon-wrapper{
     z-index: 999;
 }
+
+button{
+    cursor: pointer;
+}
