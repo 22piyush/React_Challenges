@@ -62,7 +62,7 @@ function ImageSizeFinder() {
       <div className="w-9/12 mx-auto py-16">
         <button
           onClick={closeImage}
-          className="w-fit bg-indigo-600 text-white font-medium px-16 py-3 rounded-lg flex items-center gap-1 hover:scale-105 transition-transform duration-300"
+          className="w-full lg:w-fit bg-indigo-600 text-white font-medium px-16 py-3 rounded-lg flex items-center justify-center gap-1 hover:scale-105 transition-transform duration-300"
         >
           <Plus className="w-5 h-5 mr-1" /> Add Image
         </button>
@@ -89,7 +89,7 @@ function ImageSizeFinder() {
             Clear
           </button>
         </div>
-        <div className="bg-white rounded--xl p-8 mt-10 grid grid-cols-2  justify-items-center">
+        <div className="bg-white rounded--xl p-8 mt-10 grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-0 justify-items-center">
           <div>
             <h1 className="mb-10 bg-rose-500 py-3 px-4 font-bold text-lg text-white w-fit">
               Height Finder
