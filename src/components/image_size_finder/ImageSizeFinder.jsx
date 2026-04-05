@@ -3,6 +3,29 @@ import React, { useState } from "react";
 
 function ImageSizeFinder() {
   const [src, setSrc] = useState("/favicon.svg");
+  const [original, setOriginal] = useState({
+    height: 0,
+    width: 0,
+  });
+
+  const [suggestedHeight, setSuggestedHeight] = useState(0);
+  const [suggestedWidth, setSuggestedWidth] = useState(0);
+
+  const findHeight = (e) => {
+    e.preventDefault();
+    const width = e.target.width.value;
+
+    const height = (width * original.height) / original.width;
+    setSuggestedHeight(Math.round(height));
+  };
+
+  const findWidth = (e) => {
+    e.preventDefault();
+    const height = e.target.height.value;
+
+    const width = (height * original.width) / original.height;
+    setSuggestedWidth(Math.round(width));
+  };
 
   const closeImage = () => {
     const input = document.createElement("input");
@@ -17,6 +40,10 @@ function ImageSizeFinder() {
       image.src = url;
       image.onload = () => {
         console.log(image.width, image.height);
+        setOriginal({
+          height: image.height,
+          width: image.width,
+        });
       };
     };
   };
@@ -39,8 +66,9 @@ function ImageSizeFinder() {
             <h1 className="mb-10 bg-rose-500 py-3 px-4 font-bold text-lg text-white w-fit">
               Height Finder
             </h1>
-            <form>
+            <form onSubmit={findHeight}>
               <input
+                required
                 type="number"
                 name="width"
                 className="border border-gray-300 p-3 rounded"
@@ -50,25 +78,30 @@ function ImageSizeFinder() {
                 <ArrowBigRight /> Find
               </button>
             </form>
-            <h1 className="mt-4 text-xl font-bold">Height Suggestion: </h1>
+            <h1 className="mt-4 text-xl font-bold">
+              Height Suggestion: {suggestedHeight}
+            </h1>
           </div>
 
           <div>
             <h1 className="mb-10 bg-green-500 py-3 px-4 font-bold text-lg text-white w-fit">
               Width Finder
             </h1>
-            <form>
+            <form onSubmit={findWidth}>
               <input
+                required
                 type="number"
-                name="width"
+                name="height"
                 className="border border-gray-300 p-3 rounded"
-                placeholder="Width"
+                placeholder="Height"
               />
               <button className="mt-10 bg-indigo-600 text-white flex items-center gap-1 p-2 rounded ">
                 <ArrowBigRight /> Find
               </button>
             </form>
-            <h1 className="mt-4 text-xl font-bold">Width Suggestion: </h1>
+            <h1 className="mt-4 text-xl font-bold">
+              Width Suggestion: {suggestedWidth}
+            </h1>
           </div>
         </div>
       </div>
