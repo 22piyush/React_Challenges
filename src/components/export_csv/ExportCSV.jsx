@@ -1,6 +1,7 @@
 import { Button, DatePicker, Form, Input, Modal, Select } from "antd";
 import React, { useState } from "react";
 import moment from "moment";
+import { CSVLink } from "react-csv";
 
 function ExportCSV() {
   const [data, setData] = useState([]); // ✅ empty array
@@ -10,7 +11,7 @@ function ExportCSV() {
   const createRecord = (values) => {
     const newRecord = {
       ...values,
-      date: moment(values.date).format("YYYY-MM-DD"), // ✅ formatted
+      date: moment(values.date).format("YYYY-MM-DD"),
     };
 
     setData([...data, newRecord]);
@@ -34,13 +35,19 @@ function ExportCSV() {
         >
           New Record
         </button>
+        {data.length > 0 && (
+          <CSVLink data={data}>
+            <button className="bg-rose-600 text-white font-medium px-12 py-3 rounded">
+              Export to CSV
+            </button>
+          </CSVLink>
+        )}
       </div>
 
       {/* Table */}
       <div className="bg-white rounded-lg p-4 w-9/12 mx-auto flex-1">
         <div className="max-h-[400px] overflow-auto">
           <table className="w-full border-collapse">
-
             {/* Header */}
             <thead className="sticky top-0 z-10 bg-rose-400 text-white">
               <tr className="text-left">
@@ -71,7 +78,6 @@ function ExportCSV() {
                 </tr>
               ))}
             </tbody>
-
           </table>
         </div>
       </div>
@@ -79,7 +85,6 @@ function ExportCSV() {
       {/* Modal */}
       <Modal open={open} footer={null} onCancel={handleClose}>
         <Form layout="vertical" onFinish={createRecord} form={form}>
-          
           <Form.Item
             label="Customer Name"
             name="customerName"
@@ -88,11 +93,7 @@ function ExportCSV() {
             <Input size="large" />
           </Form.Item>
 
-          <Form.Item
-            label="Mobile"
-            name="mobile"
-            rules={[{ required: true }]}
-          >
+          <Form.Item label="Mobile" name="mobile" rules={[{ required: true }]}>
             <Input size="large" />
           </Form.Item>
 
@@ -112,19 +113,11 @@ function ExportCSV() {
             <Input size="large" />
           </Form.Item>
 
-          <Form.Item
-            label="Amount"
-            name="amount"
-            rules={[{ required: true }]}
-          >
+          <Form.Item label="Amount" name="amount" rules={[{ required: true }]}>
             <Input size="large" type="number" />
           </Form.Item>
 
-          <Form.Item
-            label="Status"
-            name="status"
-            rules={[{ required: true }]}
-          >
+          <Form.Item label="Status" name="status" rules={[{ required: true }]}>
             <Select size="large">
               <Select.Option value="Cold">Cold</Select.Option>
               <Select.Option value="Hot">Hot</Select.Option>
@@ -132,11 +125,7 @@ function ExportCSV() {
             </Select>
           </Form.Item>
 
-          <Form.Item
-            label="Date"
-            name="date"
-            rules={[{ required: true }]}
-          >
+          <Form.Item label="Date" name="date" rules={[{ required: true }]}>
             <DatePicker size="large" className="w-full" />
           </Form.Item>
 
@@ -145,7 +134,6 @@ function ExportCSV() {
               Add Customer
             </Button>
           </Form.Item>
-
         </Form>
       </Modal>
     </div>
