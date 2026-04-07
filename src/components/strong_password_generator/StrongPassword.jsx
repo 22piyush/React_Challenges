@@ -1,6 +1,7 @@
 import { ArrowRight, Cannabis, Copy } from "lucide-react";
 import React, { use, useState } from "react";
 import "animate.css";
+import { toast, ToastContainer } from "react-toastify";
 
 function StrongPassword() {
   const [password, setPassword] = useState("");
@@ -10,7 +11,7 @@ function StrongPassword() {
   const numbers = "0123456789";
   const symbols = "!@#$%^&*()_+";
 
-  const pattern = upper + symbols + numbers + lower  ;
+  const pattern = upper + symbols + numbers + lower;
 
   const generatePassword = (e) => {
     e.preventDefault();
@@ -26,6 +27,11 @@ function StrongPassword() {
     }
 
     setPassword(p);
+  };
+
+  const copyPassword = () => {
+    navigator.clipboard.writeText(password);
+    toast.success("Password Copied !")
   };
 
   return (
@@ -46,10 +52,14 @@ function StrongPassword() {
         {password !== "" && (
           <div className="p-3 rounded-lg bg-black/20 text-white w-full flex items-center justify-between mt-5">
             <p>{password}</p>
-            <Copy className="w-4 h-4 hover:scale-115 duration-300 cursor-pointer" />
+            <Copy
+              onClick={() => copyPassword}
+              className="w-4 h-4 hover:scale-115 duration-300 cursor-pointer"
+            />
           </div>
         )}
       </div>
+      <ToastContainer/>
     </div>
   );
 }
