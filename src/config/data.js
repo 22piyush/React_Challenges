@@ -8,4 +8,5 @@ export const data = [
   { title: "Image Size Finder", id: "image-size-finder" },
   { title: "Export CSV", id: "export_csv" },
   { title: "Strong Password Generator", id: "strong_password_generator" },
+  { title: "Image Storage", id: "image_storage" },
 ];

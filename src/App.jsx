@@ -10,6 +10,7 @@ import FAQ from "./components/faq_component/FAQ";
 import ImageSizeFinder from "./components/image_size_finder/ImageSizeFinder";
 import ExportCSV from "./components/export_csv/ExportCSV";
 import StrongPassword from "./components/strong_password_generator/StrongPassword";
+import ImageStorage from "./components/image_storage/ImageStorage";
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +25,7 @@ function App() {
         <Route path="/image-size-finder" element={<ImageSizeFinder />} />
         <Route path="/export_csv" element={<ExportCSV />} />
         <Route path="/strong_password_generator" element={<StrongPassword />} />
+        <Route path="/image_storage" element={<ImageStorage />} />
       </Routes>
     </BrowserRouter>
   );
