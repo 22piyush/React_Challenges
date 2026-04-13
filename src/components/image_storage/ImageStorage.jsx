@@ -1,36 +1,39 @@
 import { Upload } from "lucide-react";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { useImageStore } from "./store";
 
-
-const FIVE_MB = 5*1024*1024
-
+const FIVE_MB = 5 * 1024 * 1024;
 
 function ImageStorage() {
+  const { images, setImages } = useImageStore();
+
   const chooseFile = (e) => {
     const input = e.target;
     const file = input.files[0];
-
 
     if (!file.type.startsWith("image/"))
       return toast.error("Please select an image file", {
         position: "top-center",
       });
 
-    if(file.size > FIVE_MB) 
-        return toast.error("File Size to large", {
+    if (file.size > FIVE_MB)
+      return toast.error("File Size to large", {
         position: "top-center",
-      }); 
+      });
 
-
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file)
-      fileReader.onload =()=>{
-        console.log(fileReader.result);
-        
-      }
-
-
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () => {
+      console.log(fileReader.result);
+      setImages({
+        id: Date.now(),
+        name: file.name,
+        size: file.size,
+        binary: fileReader.result,
+        createdAt: new Date(),
+      });
+    };
   };
 
   return (
@@ -48,8 +51,7 @@ function ImageStorage() {
         </div>
       </div>
 
-
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 }
