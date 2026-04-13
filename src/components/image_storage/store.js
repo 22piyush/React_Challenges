@@ -1,12 +1,15 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export const useImageStore = create(persist(
+export const useImageStore = create(
+  persist(
     (set) => ({
-        images: [],
-        setImage: (payload) => set((state) => ({
-            images: [...state.images, payload]
-        }))
+      images: [],
+      setImages: (payload) =>
+        set((state) => ({
+          images: [...state.images, payload],
+        })),
     }),
-    { name: 'image-store' }
-));
+    { name: "image-store" }
+  )
+);

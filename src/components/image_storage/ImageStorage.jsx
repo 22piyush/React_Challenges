@@ -33,6 +33,7 @@ function ImageStorage() {
         binary: fileReader.result,
         createdAt: new Date(),
       });
+      toast.success("New image added");
     };
   };
 
@@ -40,7 +41,7 @@ function ImageStorage() {
     <div className="bg-gray-100 min-h-screen">
       <div className="w-9/12 mx-auto py-10 space-y-8">
         <h1 className="text-4xl font-bold text-center">Image Storage</h1>
-        <div className=" mx-auto w-8/12 hover:scale-115 transition-transform duration-300 hover:shadow-lg cursor-pointer text-white flex flex-col items-center gap-3  p-20 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 rounded-xl">
+        <div className="relative mx-auto w-8/12 hover:scale-115 transition-transform duration-300 hover:shadow-lg cursor-pointer text-white flex flex-col items-center gap-3  p-20 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 rounded-xl">
           <Upload className="w-16 h-16" />
           <h1 className="text-xl font-medium">Click me to add an image</h1>
           <input
@@ -49,6 +50,26 @@ function ImageStorage() {
             onChange={chooseFile}
           />
         </div>
+      </div>
+
+      <div className="grid grid-cols-4 gap-6 mt-10 px-10">
+        {images.map((img) => (
+          <div
+            key={img.id}
+            className="bg-white rounded-xl shadow-md overflow-hidden"
+          >
+            <img
+              src={img.binary}
+              alt={img.name}
+              className="h-[150px] w-full object-cover"
+            />
+
+            <div className="p-3 text-sm">
+              <p className="font-semibold truncate">{img.name}</p>
+              <p className="text-gray-500">{(img.size / 1024).toFixed(2)} KB</p>
+            </div>
+          </div>
+        ))}
       </div>
 
       <ToastContainer />
