@@ -9,7 +9,13 @@ export const useImageStore = create(
         set((state) => ({
           images: [...state.images, payload],
         })),
+        
+      deleteImage: (id) =>
+        set((state) => ({
+          images: state.images.filter((img) => img.id !== id),
+        })),
     }),
+
     { name: "image-store" }
   )
 );

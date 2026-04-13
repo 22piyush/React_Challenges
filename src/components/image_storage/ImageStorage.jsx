@@ -6,7 +6,7 @@ import { useImageStore } from "./store";
 const FIVE_MB = 5 * 1024 * 1024;
 
 function ImageStorage() {
-  const { images, setImages } = useImageStore();
+  const { images, setImages, deleteImage } = useImageStore();
 
   const chooseFile = (e) => {
     const input = e.target;
@@ -57,13 +57,21 @@ function ImageStorage() {
         {images.map((img) => (
           <div
             key={img.id}
-            className="bg-white rounded-xl shadow-md overflow-hidden"
+            className="bg-white rounded-xl shadow-md overflow-hidden relative"
           >
             <img
               src={img.binary}
               alt={img.name}
               className="h-[150px] w-full object-cover"
             />
+
+            {/* DELETE BUTTON */}
+            <button
+              onClick={() => deleteImage(img.id)}
+              className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded hover:bg-red-600"
+            >
+              Delete
+            </button>
 
             <div className="p-3 text-sm">
               <p className="font-semibold truncate">{img.name}</p>
