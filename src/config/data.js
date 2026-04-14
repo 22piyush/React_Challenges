@@ -9,4 +9,5 @@ export const data = [
   { title: "Export CSV", id: "export_csv" },
   { title: "Strong Password Generator", id: "strong_password_generator" },
   { title: "Image Storage", id: "image_storage" },
+  { title: "AI Chat Bot", id: "ai_chat_bot" },
 ];

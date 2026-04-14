@@ -11,6 +11,7 @@ import ImageSizeFinder from "./components/image_size_finder/ImageSizeFinder";
 import ExportCSV from "./components/export_csv/ExportCSV";
 import StrongPassword from "./components/strong_password_generator/StrongPassword";
 import ImageStorage from "./components/image_storage/ImageStorage";
+import AIChatBot from "./components/ai_chat_bot/AIChatBot";
 function App() {
   return (
     <BrowserRouter>
@@ -18,7 +19,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/image-finder" element={<ImageFinder />} />
         <Route path="/gradient-generator" element={<GradientFenerator />} />
-        <Route path="/avatar-image-generator" element={<AvatarImageGenerator />}/>
+        <Route
+          path="/avatar-image-generator"
+          element={<AvatarImageGenerator />}
+        />
         <Route path="/youtube-thumbnail" element={<YoutubeThumbnailer />} />
         <Route path="/task-planner" element={<TaskPlanner />} />
         <Route path="/faq-component" element={<FAQ />} />
@@ -26,6 +30,7 @@ function App() {
         <Route path="/export_csv" element={<ExportCSV />} />
         <Route path="/strong_password_generator" element={<StrongPassword />} />
         <Route path="/image_storage" element={<ImageStorage />} />
+        <Route path="/ai_chat_bot" element={<AIChatBot />} />
       </Routes>
     </BrowserRouter>
   );
