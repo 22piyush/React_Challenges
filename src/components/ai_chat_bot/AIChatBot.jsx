@@ -1,14 +1,15 @@
 import { ExternalLink } from "lucide-react";
 import React, { useState } from "react";
 import "animate.css";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 function AIChatBot() {
-  const [messgae, setMesage] = useState("");
+  const [message, setMesage] = useState("");
 
   const createChat = (e) => {
     try {
       e.preventDefault();
+      console.log(message);
     } catch (err) {
       toast.error(err);
     }
@@ -52,6 +53,7 @@ function AIChatBot() {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
