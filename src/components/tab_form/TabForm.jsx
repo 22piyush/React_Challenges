@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function TabForm() {
-  return (
-    <div>TabForm</div>
-  )
+  return <div>TabForm</div>;
 }
 
-export default TabForm
+export default TabForm;
