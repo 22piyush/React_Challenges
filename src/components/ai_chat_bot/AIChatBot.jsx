@@ -2,16 +2,35 @@ import { ExternalLink } from "lucide-react";
 import React, { useState } from "react";
 import "animate.css";
 import { toast, ToastContainer } from "react-toastify";
+import axios from "axios";
+const API_KEY = "AIzaSyChN8wWqM9HJ6TFdKAWW4NMBeWLH-yxflQ";
 
 function AIChatBot() {
   const [message, setMesage] = useState("");
 
-  const createChat = (e) => {
+  const createChat = async (e) => {
+    e.preventDefault();
+
     try {
-      e.preventDefault();
-      console.log(message);
-    } catch (err) {
-      toast.error(err);
+      const response = await axios.post(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
+        {
+          contents: [
+            {
+              parts: [{ text: message }],
+            },
+          ],
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      console.log(response.data.candidates[0].content.parts[0].text);
+    } catch (error) {
+      console.error("Error:", error.response?.data || error.message);
     }
   };
 
