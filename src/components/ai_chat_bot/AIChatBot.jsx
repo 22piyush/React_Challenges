@@ -3,75 +3,115 @@ import React, { useState } from "react";
 import "animate.css";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
-const API_KEY = "AIzaSyChN8wWqM9HJ6TFdKAWW4NMBeWLH-yxflQ";
+
+const API_KEY = "";
 
 function AIChatBot() {
-  const [message, setMesage] = useState("");
+  const [message, setMessage] = useState("");
+  const [chats, setChats] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const createChat = async (e) => {
     e.preventDefault();
 
+    if (!message) return;
+
+    const userMessage = {
+      role: "user",
+      text: message,
+    };
+
+    // Add user message
+    setChats((prev) => [...prev, userMessage]);
+    setMessage("");
+    setLoading(true);
+
     try {
       const response = await axios.post(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
         {
           contents: [
             {
-              parts: [{ text: message }],
+              parts: [{ text: userMessage.text }],
             },
           ],
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
       );
 
-      console.log(response.data.candidates[0].content.parts[0].text);
+      const aiText =
+        response.data.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "No response";
+
+      const aiMessage = {
+        role: "ai",
+        text: aiText,
+      };
+
+      setChats((prev) => [...prev, aiMessage]);
     } catch (error) {
-      console.error("Error:", error.response?.data || error.message);
+      toast.error("Something went wrong!");
+      console.error(error.response?.data || error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="bg-gray-200 min-h-screen">
-      <div className="w-9/12 mx-auto bg-white min-h-screen">
-        <h1 className="text-3xl font-bold text-center">✈️ AI Chatbot</h1>
-        <div className="p-8 ">
-          <div className="flex flex-col gap-2 justify-start animate__animated animate__fadeIn">
-            <small className="text-gray-500 font-medium animate__animated animate__fadeIn">
-              Typing...
-            </small>
-            <div className="bg-rose-100  text-black font-medium px-4 py-3 rounded-xl w-fit">
-              Hi, how are you
+      <div className="w-9/12 mx-auto bg-white min-h-screen flex flex-col">
+        <h1 className="text-3xl font-bold text-center py-4">✈️ AI Chatbot</h1>
+
+        {/* Chat Area */}
+        <div className="flex-1 p-8 overflow-y-auto flex flex-col gap-4">
+          {chats.map((chat, index) => (
+            <div
+              key={index}
+              className={`flex flex-col gap-1 ${
+                chat.role === "user" ? "items-end" : "items-start"
+              } animate__animated animate__fadeIn`}
+            >
+              <small className="text-gray-500 text-sm">
+                {chat.role === "user" ? "You" : "AI"}
+              </small>
+
+              <div
+                className={`px-4 py-3 rounded-xl w-fit max-w-[70%] ${
+                  chat.role === "user" ? "bg-green-100" : "bg-rose-100"
+                }`}
+              >
+                {chat.text}
+              </div>
             </div>
-          </div>
-          <div className="flex flex-col gap-2 items-end animate__animated animate__fadeIn">
-            <small className="text-gray-500 text-sm  w-full font-medium text-right animate__animated animate__fadeIn">
-              Typing...
-            </small>
-            <div className="bg-green-100  text-black font-medium px-4 py-3 rounded-xl w-fit">
-              Hi, how are you
+          ))}
+
+          {/* Typing Indicator */}
+          {loading && (
+            <div className="flex flex-col gap-1 items-start animate__animated animate__fadeIn">
+              <small className="text-gray-500 text-sm">AI</small>
+              <div className="bg-rose-100 px-4 py-3 rounded-xl w-fit">
+                Typing...
+              </div>
             </div>
-          </div>
+          )}
         </div>
-        <div className="bg-indigo-600 p-8 fixed bottom-0 w-9/12">
+
+        {/* Input */}
+        <div className="bg-indigo-600 p-6">
           <form className="flex gap-4" onSubmit={createChat}>
             <input
-              required
+              value={message}
               type="text"
-              className="bg-white rounded-xl p-6 w-full"
-              placeholder="Chat with AI from here"
-              onChange={(e) => setMesage(e.target.value.trim())}
+              className="bg-white rounded-xl p-4 w-full"
+              placeholder="Chat with AI..."
+              onChange={(e) => setMessage(e.target.value)}
             />
-            <button className="bg-yellow-500 px-12 rounded-xl text-white flex flex-col items-center justify-center hover:bg-green-400 scale-0.5 transition-transform duration-300">
+            <button className="bg-yellow-500 px-6 rounded-xl text-white flex items-center justify-center hover:bg-green-400 transition">
               <ExternalLink />
-              Send
             </button>
           </form>
         </div>
       </div>
+
       <ToastContainer />
     </div>
   );

@@ -10,4 +10,5 @@ export const data = [
   { title: "Strong Password Generator", id: "strong_password_generator" },
   { title: "Image Storage", id: "image_storage" },
   { title: "AI Chat Bot", id: "ai_chat_bot" },
+  { title: "Machine Round Tab Form", id: "tab_form" },
 ];

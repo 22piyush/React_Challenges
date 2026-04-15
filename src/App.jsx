@@ -12,6 +12,7 @@ import ExportCSV from "./components/export_csv/ExportCSV";
 import StrongPassword from "./components/strong_password_generator/StrongPassword";
 import ImageStorage from "./components/image_storage/ImageStorage";
 import AIChatBot from "./components/ai_chat_bot/AIChatBot";
+import TabForm from "./components/tab_form/TabForm";
 function App() {
   return (
     <BrowserRouter>
@@ -31,6 +32,7 @@ function App() {
         <Route path="/strong_password_generator" element={<StrongPassword />} />
         <Route path="/image_storage" element={<ImageStorage />} />
         <Route path="/ai_chat_bot" element={<AIChatBot />} />
+        <Route path="/tab_form" element={<TabForm />} />
       </Routes>
     </BrowserRouter>
   );
