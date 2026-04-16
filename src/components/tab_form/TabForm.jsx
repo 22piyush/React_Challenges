@@ -32,7 +32,7 @@ function TabForm() {
 
   return (
     <div className="min-h-screen p-10 bg-slate-200 flex flex-col">
-      <div class="header">
+      <div className="header">
         {tabs.map((item, index) => (
           <div
             key={index}
