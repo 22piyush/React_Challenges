@@ -6,7 +6,13 @@ import "./tabForm.css";
 
 function TabForm() {
   const [activeTab, setActiveTab] = useState(0);
-
+  const [data, setData] = useState({
+    name: "Piyush",
+    age: "23",
+    email: "piyush@1234",
+    interests: ["code", "debug"],
+    theme: "dark",
+  });
   const tabs = [
     {
       name: "Profile",
@@ -28,13 +34,17 @@ function TabForm() {
     <div className="min-h-screen p-10 bg-slate-200 flex flex-col">
       <div class="header">
         {tabs.map((item, index) => (
-          <div key={index} class="header-text" onClick={()=>setActiveTab(index)}>
+          <div
+            key={index}
+            class="header-text"
+            onClick={() => setActiveTab(index)}
+          >
             {item.name}
           </div>
         ))}
       </div>
       <div class="header-text flex-1 mt-10">
-        <ActiveTabComponent />
+        <ActiveTabComponent data={data} setData={setData}/>
       </div>
     </div>
   );
