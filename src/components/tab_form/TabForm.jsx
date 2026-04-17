@@ -36,7 +36,7 @@ function TabForm() {
         {tabs.map((item, index) => (
           <div
             key={index}
-            className="header-text"
+             className={`header-text ${index === activeTab ? "bg-amber-500" : ""}`}
             onClick={() => setActiveTab(index)}
           >
             {item.name}
