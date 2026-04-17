@@ -30,7 +30,7 @@ function Interest({ data, setData }) {
           type="checkbox"
           name="coding"
           onChange={handleChange}
-          checked={interests.includes("coding")}
+          checked={interests.includes("code")}
         />
       </div>
 
@@ -40,7 +40,7 @@ function Interest({ data, setData }) {
           type="checkbox"
           name="music"
           onChange={handleChange}
-          checked={interests.includes("music")}
+          checked={interests.includes("debug")}
         />
       </div>
     </div>
