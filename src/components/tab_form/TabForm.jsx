@@ -36,7 +36,7 @@ function TabForm() {
         {tabs.map((item, index) => (
           <div
             key={index}
-             className={`header-text ${index === activeTab ? "bg-amber-500" : ""}`}
+            className={`header-text ${index === activeTab ? "bg-amber-500" : ""}`}
             onClick={() => setActiveTab(index)}
           >
             {item.name}
@@ -45,8 +45,12 @@ function TabForm() {
       </div>
       <div className="header-text flex-1 mt-10">
         <div className="h-full w-full">
-          <ActiveTabComponent data={data} setData={setData}/>
+          <ActiveTabComponent data={data} setData={setData} />
         </div>
+      </div>
+      <div className="w-full flex gap-4 justify-center mt-5">
+        <button className="header-text">Prev</button>
+        <button className="header-text">Next</button>
       </div>
     </div>
   );
