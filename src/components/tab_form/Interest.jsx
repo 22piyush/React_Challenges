@@ -9,10 +9,8 @@ function Interest({ data, setData }) {
     let updatedInterests;
 
     if (checked) {
-      // add interest
       updatedInterests = [...interests, name];
     } else {
-      // remove interest
       updatedInterests = interests.filter((item) => item !== name);
     }
 
@@ -30,7 +28,7 @@ function Interest({ data, setData }) {
           type="checkbox"
           name="coding"
           onChange={handleChange}
-          checked={interests.includes("code")}
+          checked={interests.includes("coding")} 
         />
       </div>
 
@@ -40,7 +38,7 @@ function Interest({ data, setData }) {
           type="checkbox"
           name="music"
           onChange={handleChange}
-          checked={interests.includes("debug")}
+          checked={interests.includes("music")}   
         />
       </div>
     </div>
